@@ -60,6 +60,12 @@ module ``about the stock example`` =
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
+        let result = 
+            Seq.skip 1 stockData 
+            |> Seq.map (fun line -> line.Split ",") 
+            |> Seq.map (fun line -> 
+                (line.[0],abs(System.Double.Parse(line.[1]) - System.Double.Parse(line.[4])))) 
+            |> Seq.maxBy snd 
+            |> fst
         
         AssertEquality "2012-03-13" result
